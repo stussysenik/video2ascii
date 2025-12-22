@@ -14,9 +14,17 @@ npm install video2ascii
 ## Usage
 
 ```tsx
-import { VideoToAscii } from "@/components/VideoToAscii";
+import { VideoToAscii } from "video2ascii";
 
-<VideoToAscii src="/video.mp4" fontSize={12} colored audioReactivity={50} />;
+<VideoToAscii 
+    src="/video.mp4" 
+    fontSize={12} 
+    colored={true} 
+    audioReactivity={50} 
+    enableMouse={true}
+    enableRipple={true}
+    charset="detailed"
+/>;
 ```
 
 ## Props
