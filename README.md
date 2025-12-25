@@ -4,6 +4,18 @@ WebGL-powered React Component for video to ASCII conversion.
 
 ![gta.jpeg](./assets/gta.jpeg)
 
+## 📚 Learning Resources
+
+**Want to learn how it works?** Check out the comprehensive [Learning Documentation](./LEARNING_DOCS/README.md)!
+
+- 🎯 [Getting Started Guide](./LEARNING_DOCS/code-walkthroughs/getting-started-guide.md) - Step-by-step tutorial
+- 🏗️ [System Architecture](./LEARNING_DOCS/architecture/system-overview.md) - High-level design
+- 📊 [Data Flow](./LEARNING_DOCS/architecture/data-flow.md) - How data moves through the system
+- 🧩 [Component Hierarchy](./LEARNING_DOCS/architecture/component-hierarchy.md) - Component structure
+- ⚡ [Quick Reference](./LEARNING_DOCS/QUICK_REFERENCE.md) - API cheat sheet
+
+Perfect for learning WebGL, GLSL shaders, React hooks, and real-time graphics programming!
+
 ## Installation
 
 ```bash
