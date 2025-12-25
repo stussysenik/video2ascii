@@ -145,6 +145,8 @@ export interface VideoToAsciiProps {
 
   showStats?: boolean;
   className?: string;
+  style?: React.CSSProperties;
+  maxWidth?: number;
 }
 
 // Legacy types for backwards compat

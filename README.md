@@ -10,6 +10,23 @@ WebGL-powered React Component for video to ASCII conversion.
 npm install video2ascii
 ```
 
+## Local Demo
+
+To run a demo locally using Bun:
+
+```bash
+# Build the library
+npm run build
+
+# Install Bun (if not already installed)
+curl -fsSL https://bun.sh/install | bash
+
+# Run the demo with Bun
+bun run demo.ts
+```
+
+The demo will open in your browser at `http://localhost:3000` and display the `born.mp4` video as ASCII art.
+
 ## Usage
 
 ```tsx

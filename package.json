@@ -1,51 +1,54 @@
 {
-  "name": "video2ascii",
-  "version": "1.1.0",
-  "description": "WebGL-powered video to ASCII converter for React",
-  "author": "Elijah Kurien",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/elijah0528/video2ascii"
-  },
-  "keywords": [
-    "ascii",
-    "video",
-    "webgl",
-    "react",
-    "ascii-art"
-  ],
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
-    }
-  },
-  "files": [
-    "dist",
-    "README.md",
-    "assets"
-  ],
-  "scripts": {
-    "build": "tsup",
-    "lint": "eslint src/",
-    "prepublishOnly": "npm run build"
-  },
-  "peerDependencies": {
-    "react": ">=18.0.0",
-    "react-dom": ">=18.0.0"
-  },
-  "devDependencies": {
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "react": "^18",
-    "react-dom": "^18",
-    "tsup": "^8",
-    "typescript": "^5"
-  }
+        "name": "video2ascii",
+        "version": "1.1.0",
+        "description": "WebGL-powered video to ASCII converter for React",
+        "author": "Elijah Kurien",
+        "license": "MIT",
+        "repository": {
+                "type": "git",
+                "url": "https://github.com/elijah0528/video2ascii"
+        },
+        "keywords": [
+                "ascii",
+                "video",
+                "webgl",
+                "react",
+                "ascii-art"
+        ],
+        "main": "dist/index.js",
+        "module": "dist/index.mjs",
+        "types": "dist/index.d.ts",
+        "exports": {
+                ".": {
+                        "types": "./dist/index.d.ts",
+                        "import": "./dist/index.mjs",
+                        "require": "./dist/index.js"
+                }
+        },
+        "files": [
+                "dist",
+                "README.md",
+                "assets"
+        ],
+        "scripts": {
+                "build": "tsup",
+                "lint": "eslint src/",
+                "prepublishOnly": "npm run build",
+                "demo": "vite --config demo.config.ts"
+        },
+        "peerDependencies": {
+                "react": ">=18.0.0",
+                "react-dom": ">=18.0.0"
+        },
+        "devDependencies": {
+                "@types/react": "^19",
+                "@types/react-dom": "^19",
+                "@vitejs/plugin-react": "^4",
+                "eslint": "^9",
+                "react": "^18",
+                "react-dom": "^18",
+                "tsup": "^8",
+                "typescript": "^5",
+                "vite": "^5"
+        }
 }

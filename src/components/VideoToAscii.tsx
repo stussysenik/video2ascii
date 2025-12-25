@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, forwardRef, useImperativeHandle } from "react";
 import { useVideoToAscii } from "@/hooks/useVideoToAscii";
 import { useAsciiMouseEffect } from "@/hooks/useAsciiMouseEffect";
 import { useAsciiRipple } from "@/hooks/useAsciiRipple";
@@ -10,26 +10,43 @@ import { type VideoToAsciiProps } from "@/lib/webgl";
 export type { VideoToAsciiProps };
 
 // Component Implementation
-export function Video2Ascii({
-  src,
-  numColumns,
-  colored = true,
-  blend = 0,
-  highlight = 0,
-  brightness = 1.0,
-  charset = "standard",
-  enableMouse = true,
-  trailLength = 24,
-  enableRipple = false,
-  rippleSpeed = 40,
-  audioEffect = 0,
-  audioRange = 50,
-  isPlaying = true,
-  autoPlay = true,
-  enableSpacebarToggle = false,
-  showStats = false,
-  className = "",
-}: VideoToAsciiProps) {
+export const Video2Ascii = forwardRef<
+  { videoRef: React.RefObject<HTMLVideoElement> },
+  VideoToAsciiProps
+>(function Video2Ascii(
+  {
+    src,
+    numColumns,
+    colored = true,
+    blend = 0,
+    highlight = 0,
+    brightness = 1.0,
+    charset = "standard",
+    enableMouse = true,
+    trailLength = 24,
+    enableRipple = false,
+    rippleSpeed = 40,
+    audioEffect = 0,
+    audioRange = 50,
+    isPlaying = true,
+    autoPlay = true,
+    enableSpacebarToggle = false,
+    showStats = false,
+    className = "",
+    style,
+    maxWidth,
+  },
+  ref
+) {
+  console.log("[Video2Ascii] Component rendering with props:", {
+    src,
+    numColumns,
+    isPlaying,
+    autoPlay,
+    maxWidth,
+    style,
+  });
+
   // Core hook handles WebGL setup and rendering
   const ascii = useVideoToAscii({
     numColumns,
@@ -39,11 +56,23 @@ export function Video2Ascii({
     brightness,
     charset,
     enableSpacebarToggle,
+    maxWidth,
   });
 
   // Destructure to avoid linter issues with accessing refs
   const { containerRef, videoRef, canvasRef, stats, dimensions, isReady } =
     ascii;
+
+  // Expose video ref to parent
+  useImperativeHandle(ref, () => ({
+    videoRef: videoRef as React.RefObject<HTMLVideoElement>,
+  }));
+
+  console.log("[Video2Ascii] Hook state:", {
+    isReady,
+    hasVideoRef: !!videoRef.current,
+    hasCanvasRef: !!canvasRef.current,
+  });
 
   // Feature hooks - always call them (React rules), enable/disable via options
   const mouseHandlers = useAsciiMouseEffect(ascii, {
@@ -65,21 +94,38 @@ export function Video2Ascii({
   // Control video playback based on isPlaying prop
   useEffect(() => {
     const video = videoRef.current;
-    if (!video) return;
+    if (!video) {
+      // Video ref might be null initially
+      return;
+    }
+
+    console.log(
+      "[Video2Ascii] Playback effect triggered. isPlaying:",
+      isPlaying,
+      "autoPlay:",
+      autoPlay,
+      "isReady:",
+      isReady
+    );
 
     if (isPlaying) {
       if (autoPlay && isReady) {
-        video.play().catch(() => {
-          // Auto-play may be blocked by browser, that's ok
-        });
+        console.log("[Video2Ascii] Attempting to play video...");
+        video.play().then(() => {
+          console.log("[Video2Ascii] Video playing successfully.");
+        })
+          .catch((e) => {
+            console.error("[Video2Ascii] Auto-play failed:", e);
+          });
       }
     } else {
+      console.log("[Video2Ascii] Pausing video.");
       video.pause();
     }
   }, [isPlaying, autoPlay, isReady, videoRef]);
 
   return (
-    <div className={`video-to-ascii ${className}`}>
+    <div className={`video-to-ascii ${className}`} style={style}>
       {/* Hidden video element - feeds frames to WebGL */}
       <video
         ref={videoRef}
@@ -118,6 +164,6 @@ export function Video2Ascii({
       </div>
     </div>
   );
-}
+});
 
 export default Video2Ascii;

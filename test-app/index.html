@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video2ASCII Test</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Courier New', monospace;
+        }
+        #root {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <!-- React and ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Babel for JSX transformation in browser -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Our built video2ascii library -->
+    <script src="../dist/index.js"></script>
+
+    <!-- Main application -->
+    <script type="text/babel">
+        const { Video2Ascii } = window.video2ascii || {};
+
+        if (!Video2Ascii) {
+            console.error('Video2Ascii not found! Make sure the library is built.');
+            document.getElementById('root').innerHTML = '<div style="color: white;">Error: Library not loaded</div>';
+        } else {
+            const App = () => {
+                return React.createElement(Video2Ascii, {
+                    src: "/born.mp4",
+                    numColumns: 120,
+                    colored: true,
+                    brightness: 1.0,
+                    audioEffect: 50,
+                    enableMouse: true,
+                    enableRipple: true,
+                    charset: "detailed",
+                    isPlaying: true,
+                    autoPlay: true
+                });
+            };
+
+            const root = ReactDOM.createRoot(document.getElementById('root'));
+            root.render(React.createElement(App));
+        }
+    </script>
+</body>
+</html>
